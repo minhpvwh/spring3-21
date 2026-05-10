@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>vn.tpbank.platform</groupId>
+    <artifactId>tp-spring-platform</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>TP Spring Platform</name>
+    <description>Platform engineering mono-repo for TP Bank microservices</description>
+
+    <modules>
+        <module>tp-spring-parent</module>
+        <module>tp-spring-bom</module>
+        <module>starters/tp-starter-observability</module>
+        <module>starters/tp-starter-web</module>
+        <module>starters/tp-starter-data-oracle</module>
+        <module>starters/tp-starter-security</module>
+        <module>starters/tp-starter-feign</module>
+        <module>starters/tp-starter-kafka</module>
+        <module>starters/tp-starter-resilience</module>
+        <module>starters/tp-starter-outbox</module>
+        <module>starters/tp-starter-test</module>
+        <module>starters/tp-starter-graphql</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>tp-nexus-releases</id>
+            <url>https://nexus.internal.tpbank.vn/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>tp-nexus-snapshots</id>
+            <url>https://nexus.internal.tpbank.vn/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>

@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: tp-sample-client-service
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+  # ── OAuth2 Resource Server: validate incoming Bearer tokens via Keycloak ──────
+  # jwk-set-uri avoids OIDC discovery at startup; keys are fetched on first JWT validation
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/tp-internal/protocol/openid-connect/certs
+
+# ── Server ────────────────────────────────────────────────────────────────────
+server:
+  port: 8082
+  shutdown: graceful
+
+# ── Platform configuration ────────────────────────────────────────────────────
+tp:
+  platform:
+    observability:
+      tracing-id-header: X-Tracing-Id
+      transaction-id-header: X-Transaction-Id
+      log-request-body: false
+    web:
+      shutdown:
+        timeout-seconds: 30
+    security:
+      keycloak:
+        # Keycloak realm used to validate incoming JWT tokens
+        issuer-uri: http://localhost:8080/realms/tp-internal
+      # Scope-based path protection — applied by tp-starter-security auto-config
+      scope-rules:
+        - path: /api/v1/internal/**
+          scope: tf_test
+
+  # ── Client-specific config ───────────────────────────────────────────────────
+  client:
+    keycloak:
+      # Token endpoint for obtaining client_credentials access token (outgoing calls)
+      token-uri: http://localhost:8080/realms/tp-internal/protocol/openid-connect/token
+      client-id: sample_user1
+      client-secret: 3Sdqr4igeEWs2AtsgJz4QjN1kslXjGiT
+
+    hello-service:
+      # Base URL of the target service this client calls
+      url: http://localhost:8081
+
+# ── Actuator ─────────────────────────────────────────────────────────────────
+management:
+  server:
+    port: 8001
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}

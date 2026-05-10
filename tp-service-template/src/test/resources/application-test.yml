@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: tp-service-sample-test
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9999/mock/.well-known/jwks.json
+
+logging:
+  level:
+    vn.tpbank: DEBUG
+
+tp:
+  client:
+    keycloak:
+      token-uri: http://localhost:9999/mock/token
+      client-id: test-client
+      client-secret: test-secret
+    client-service:
+      url: http://localhost:9999/mock

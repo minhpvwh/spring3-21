@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: tp-sample-client-service-test
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Use jwk-set-uri instead of issuer-uri to skip OIDC discovery at startup
+          issuer-uri: ~
+          jwk-set-uri: http://localhost:9999/mock/.well-known/jwks.json
+
+logging:
+  level:
+    vn.tpbank: DEBUG
+
+tp:
+  platform:
+    security:
+      keycloak:
+        issuer-uri: http://localhost:9999/mock/realms/test
+  client:
+    keycloak:
+      token-uri: http://localhost:9999/mock/token
+      client-id: test-client
+      client-secret: test-secret
+    hello-service:
+      url: http://localhost:9999/mock

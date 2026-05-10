@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>vn.tpbank.platform</groupId>
+    <artifactId>tp-spring-bom</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>TP Spring BOM</name>
+    <description>Bill of Materials for version alignment of all TP Bank platform starters and key third-party libraries</description>
+
+    <properties>
+        <tp.platform.version>1.0.0-SNAPSHOT</tp.platform.version>
+
+        <!-- Spring Boot BOM (imported for transitive version management) -->
+        <spring-boot.version>3.3.5</spring-boot.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
+
+        <!-- Third-party versions NOT managed by Spring Boot -->
+        <oracle-jdbc.version>23.5.0.24.07</oracle-jdbc.version>
+        <mapstruct.version>1.6.2</mapstruct.version>
+        <resilience4j.version>2.2.0</resilience4j.version>
+        <springdoc-openapi.version>2.6.0</springdoc-openapi.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- ===== Spring Boot BOM ===== -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- ===== Spring Cloud BOM ===== -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- ===== TP Platform Starters ===== -->
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-observability</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-web</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-data-oracle</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-security</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-feign</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-kafka</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-resilience</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-outbox</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-test</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-starter-graphql</artifactId>
+                <version>${tp.platform.version}</version>
+            </dependency>
+
+            <!-- ===== Third-party not in Spring Boot BOM ===== -->
+            <dependency>
+                <groupId>com.oracle.database.jdbc</groupId>
+                <artifactId>ojdbc11</artifactId>
+                <version>${oracle-jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc-openapi.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

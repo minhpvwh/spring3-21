@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ========== PARENT: Build governance ========== -->
+    <parent>
+        <groupId>vn.tpbank.platform</groupId>
+        <artifactId>tp-spring-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath/> <!-- Resolved from Nexus -->
+    </parent>
+
+    <groupId>vn.tpbank.service</groupId>
+    <artifactId>tp-sample-client-service</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <name>TP Sample Client Service</name>
+    <description>Demonstrates service-to-service calls with Keycloak authentication via FeignClient</description>
+
+    <properties>
+        <tp.platform.version>1.0.0-SNAPSHOT</tp.platform.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- ========== BOM: Version alignment ========== -->
+            <dependency>
+                <groupId>vn.tpbank.platform</groupId>
+                <artifactId>tp-spring-bom</artifactId>
+                <version>${tp.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- ========== MANDATORY ========== -->
+        <dependency>
+            <groupId>vn.tpbank.platform</groupId>
+            <artifactId>tp-starter-observability</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vn.tpbank.platform</groupId>
+            <artifactId>tp-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vn.tpbank.platform</groupId>
+            <artifactId>tp-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ========== SECURITY: Validate incoming Bearer tokens via Keycloak ========== -->
+        <dependency>
+            <groupId>vn.tpbank.platform</groupId>
+            <artifactId>tp-starter-security</artifactId>
+        </dependency>
+
+        <!-- ========== FEIGN: Outgoing service-to-service HTTP calls ========== -->
+        <dependency>
+            <groupId>vn.tpbank.platform</groupId>
+            <artifactId>tp-starter-feign</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

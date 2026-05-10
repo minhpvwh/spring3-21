@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: tp-service-sample
+  lifecycle:
+    timeout-per-shutdown-phase: 30s   # override platform default if needed
+
+  # ── OAuth2 Resource Server: validate incoming Bearer tokens via Keycloak ──────
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/tp-internal/protocol/openid-connect/certs
+
+# ── Server ────────────────────────────────────────────────────────────────────
+server:
+  port: 8081
+  shutdown: graceful                  # wait for in-flight requests before stopping
+
+# ── Platform configuration ────────────────────────────────────────────────────
+tp:
+  platform:
+    observability:
+      tracing-id-header: X-Tracing-Id
+      transaction-id-header: X-Transaction-Id
+      log-request-body: false
+    web:
+      shutdown:
+        timeout-seconds: 30           # drives spring.lifecycle.timeout-per-shutdown-phase
+    security:
+      keycloak:
+        issuer-uri: http://localhost:8080/realms/tp-internal
+
+  # ── Outgoing client credentials (for calling tp-sample-client-service) ───────
+  client:
+    keycloak:
+      token-uri: http://localhost:8080/realms/tp-internal/protocol/openid-connect/token
+      client-id: sample_user1
+      client-secret: 3Sdqr4igeEWs2AtsgJz4QjN1kslXjGiT
+    client-service:
+      # Base URL of tp-sample-client-service
+      url: http://localhost:8082
+
+# ── Actuator — dedicated port, separate from business API ────────────────────
+management:
+  server:
+    port: 8000                        # health/metrics port — không expose ra load balancer chính
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true                 # /actuator/health/liveness + /actuator/health/readiness
+  metrics:
+    tags:
+      application: ${spring.application.name}

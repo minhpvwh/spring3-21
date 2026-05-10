@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    vn.tpbank: DEBUG
+    org.springframework.web: DEBUG
+    feign: DEBUG
+
+# Uncomment when using Oracle
+# spring:
+#   datasource:
+#     url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+#     username: ${DB_USERNAME:dev_user}
+#     password: ${DB_PASSWORD:dev_pass}
