@@ -3,6 +3,8 @@ spring:
     name: tp-sample-client-service
   lifecycle:
     timeout-per-shutdown-phase: 30s
+  profiles:
+    default: dev                      # used when no profile is passed (plain java -jar)
 
   # ── OAuth2 Resource Server: validate incoming Bearer tokens via Keycloak ──────
   # jwk-set-uri avoids OIDC discovery at startup; keys are fetched on first JWT validation

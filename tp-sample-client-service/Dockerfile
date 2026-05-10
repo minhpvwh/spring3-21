@@ -10,6 +10,9 @@ RUN chown -R appuser:appgroup /app
 
 USER appuser
 
+# Default profile for container deployments — override via SPRING_PROFILES_ACTIVE env var
+ENV SPRING_PROFILES_ACTIVE=prod
+
 EXPOSE 8082
 
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
